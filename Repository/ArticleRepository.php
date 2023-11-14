@@ -20,35 +20,35 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     public function add(Article $entity, bool $flush = false): void
-  {
-      $this->getEntityManager()->persist($entity);
-
-      if ($flush) {
-          $this->getEntityManager()->flush();
-      }
-  }
-
-  public function remove(Article $entity, bool $flush = false): void
-  {
-      $this->getEntityManager()->remove($entity);
-
-      if ($flush) {
-          $this->getEntityManager()->flush();
-      }
-  }
-
-    /**
-     * @param int $offset
-     * @param int $limit
-     * @return mixed
-     */
-    public function getAllArticles(int $offset = 0, int $limit = 10)
     {
-        return $this->createQueryBuilder('a')
-            ->setMaxResults($limit)
-            ->setFirstResult($offset)
-            ->orderBy('a.name', 'ASC');
-            ->getQuery()
-            ->getResult();
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+          $this->getEntityManager()->flush();
+        }
     }
+
+    public function remove(Article $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+    
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+    
+        /**
+         * @param int $offset
+         * @param int $limit
+         * @return mixed
+         */
+     public function getAllArticles(int $offset = 0, int $limit = 10)
+     {
+         return $this->createQueryBuilder('a')
+                ->setMaxResults($limit)
+                ->setFirstResult($offset)
+                ->orderBy('a.name', 'ASC');
+                ->getQuery()
+                ->getResult();
+     }
 }
